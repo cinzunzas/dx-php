@@ -106,7 +106,8 @@ class Config
     public function set($key, $value)
     {
         parent::set($key, $value);
-        if ($this->get('CLIENT_ID') != "" && $this->get('CLIENT_SECRET') != "" && empty($this->get('ACCESS_TOKEN'))) {
+        $checkEmptyToken = empty($this->get('ACCESS_TOKEN'); // php < 5.5 empty function - cannot check the return value of a function or method. 
+        if ($this->get('CLIENT_ID') != "" && $this->get('CLIENT_SECRET') != "" && empty($checkEmptyToken)) {
             $response = $this->getToken();
             if (isset($response['access_token'])) {
                 parent::set('ACCESS_TOKEN', $response['access_token']); 
